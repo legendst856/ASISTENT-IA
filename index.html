@@ -4,14 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>jhoIA • Asistente IA que responde como un humano</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
-    :root { --primary: #00ff9d; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
     .hero-bg { background: linear-gradient(135deg, #0a1f1a 0%, #112c26 100%); }
-    .chat-bubble-user { background: #00ff9d; color: #000; border-radius: 20px 20px 0 20px; }
-    .chat-bubble-ai { background: #1f2937; border-radius: 20px 20px 20px 0; }
   </style>
 </head>
 <body class="bg-zinc-950 text-white font-sans">
@@ -29,102 +26,30 @@
       </div>
       <div class="flex items-center gap-4">
         <a href="#" onclick="mostrarLogin()" class="text-sm font-medium px-6 py-2.5 rounded-3xl border border-white/30 hover:border-white/70 transition">Iniciar sesión</a>
-        <a href="#" onclick="empezarGratis()" class="bg-emerald-400 hover:bg-emerald-300 transition text-black font-semibold px-8 py-2.5 rounded-3xl flex items-center gap-2">
-          <i class="fas fa-rocket"></i> Probar gratis
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
-          <i class="fas fa-bars" id="menu-icon"></i>
-        </button>
-      </div>
-    </div>
-    <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-white/10 py-6 px-6">
-      <div class="flex flex-col gap-6 text-lg">
-        <a href="index.html" onclick="toggleMobileMenu()">Inicio</a>
-        <a href="caracteristicas.html" onclick="toggleMobileMenu()">Cómo funciona</a>
-        <a href="demo.html" onclick="toggleMobileMenu()">Demo en vivo</a>
+        <a href="demo.html" class="bg-emerald-400 text-black font-semibold px-8 py-2.5 rounded-3xl hover:bg-emerald-300 transition">Probar gratis</a>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero-bg pt-28 pb-20 md:pt-32">
-    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-      <div class="space-y-8">
-        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-sm px-5 py-2 rounded-3xl backdrop-blur">
-          <div class="w-2 h-2 bg-emerald-400 animate-pulse rounded-full"></div>
-          IA que responde como un humano real
-        </div>
-        <h1 class="text-6xl md:text-7xl font-semibold leading-none tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
-          Tu asistente IA que <span class="text-emerald-400">habla natural</span><br>y agenda como un humano
-        </h1>
-        <p class="text-xl text-zinc-400 max-w-lg">
-          Responde mensajes de WhatsApp, Instagram y correo <strong class="text-white">exactamente como tú lo harías</strong>.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <button onclick="empezarGratis()" class="bg-emerald-400 hover:bg-emerald-300 transition text-black text-lg font-semibold px-10 py-6 rounded-3xl flex items-center gap-3">
-            <i class="fas fa-play"></i> Probar jhoIA GRATIS
-          </button>
-          <a href="demo.html" class="border border-white/50 hover:bg-white/10 transition text-lg font-medium px-10 py-6 rounded-3xl flex items-center gap-3">
-            <i class="fas fa-robot"></i> Ver demo en vivo
-          </a>
-        </div>
-      </div>
-      <div class="relative">
-        <div class="bg-gradient-to-br from-emerald-400/10 to-teal-500/10 backdrop-blur-3xl border border-white/10 rounded-3xl p-2 shadow-2xl">
-          <div class="bg-zinc-900 rounded-3xl p-8">
-            <div class="space-y-6 text-sm">
-              <div class="bg-zinc-800 rounded-2xl p-5">“Hola, ¿tienes disponibilidad mañana a las 3 pm?”</div>
-              <div class="bg-emerald-400/10 text-emerald-400 rounded-2xl p-5 flex items-center gap-3">
-                <i class="fas fa-check-circle"></i>
-                <span>¡Perfecto! Te agendé la cita para mañana 3:00 pm. ¿Algo más?</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <!-- Hero Section (puedes expandir con más contenido como en tu versión anterior) -->
+  <section class="hero-bg min-h-screen pt-32 pb-20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-6xl font-bold tracking-tighter mb-6" style="font-family: 'Space Grotesk', sans-serif;">
+        Tu asistente IA que <span class="text-emerald-400">habla como humano</span>
+      </h2>
+      <p class="text-xl text-zinc-400 max-w-2xl mx-auto mb-10">
+        Responde mensajes de WhatsApp e Instagram, agenda citas, hace reservaciones y suena 100% natural.
+      </p>
+      <a href="demo.html" class="inline-flex items-center gap-3 bg-emerald-400 text-black font-semibold text-lg px-10 py-4 rounded-3xl hover:bg-emerald-300 transition">
+        Probar demo en vivo <i class="fas fa-arrow-right"></i>
+      </a>
     </div>
   </section>
-
-  <!-- CTA FINAL -->
-  <section class="bg-gradient-to-r from-emerald-400 to-teal-500 py-20 text-black">
-    <div class="max-w-4xl mx-auto text-center px-6">
-      <h2 class="text-5xl font-semibold tracking-tighter mb-6">¿Listo para que tu negocio responda como un humano?</h2>
-      <button onclick="empezarGratis()" class="text-2xl bg-black text-white font-semibold px-16 py-8 rounded-3xl hover:scale-105 transition">
-        Empezar ahora con jhoIA →
-      </button>
-    </div>
-  </section>
-
-  <footer class="bg-black py-12 text-zinc-400 text-sm">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-      <div>© 2026 jhoIA • Asistente IA que habla como tú</div>
-      <div class="flex gap-6">
-        <a href="index.html" class="hover:text-emerald-400">Inicio</a>
-        <a href="caracteristicas.html" class="hover:text-emerald-400">Cómo funciona</a>
-        <a href="demo.html" class="hover:text-emerald-400">Demo</a>
-      </div>
-    </div>
-  </footer>
 
   <script>
-    function toggleMobileMenu() {
-      const menu = document.getElementById('mobile-menu');
-      const icon = document.getElementById('menu-icon');
-      menu.classList.toggle('hidden');
-      icon.classList.toggle('fa-bars');
-      icon.classList.toggle('fa-xmark');
-    }
-    function empezarGratis() {
-      const m = document.createElement('div');
-      m.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#00ff9d;color:#000;padding:20px 40px;border-radius:9999px;font-weight:600;box-shadow:0 10px 30px -10px #00ff9d;z-index:9999';
-      m.innerHTML = '🎉 ¡Genial! Redirigiendo a tu prueba gratis...';
-      document.body.appendChild(m);
-      setTimeout(() => { m.style.opacity = '0'; setTimeout(() => m.remove(), 400); alert('✅ ¡Bienvenido a jhoIA!'); }, 1800);
-    }
     function mostrarLogin() {
-      alert('🔑 Iniciar sesión (en producción abre un modal)');
+      alert('🔑 Función de login (puedes conectar con Firebase o similar más adelante)');
     }
-    console.log('%c✅ jhoIA - index.html listo', 'color:#00ff9d;font-weight:bold');
   </script>
 </body>
 </html>
