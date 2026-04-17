@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo en vivo • jhoIA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    .chat-bubble-user { background: #00ff9d; color: #000; border-radius: 20px 20px 0 20px; }
+    .chat-bubble-ai { background: #1f2937; border-radius: 20px 20px 20px 0; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white font-sans">
+  <nav class="fixed top-0 w-full bg-zinc-950/90 backdrop-blur-lg z-50 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-emerald-400 rounded-2xl flex items-center justify-center text-black font-bold text-2xl">🤖</div>
+        <h1 class="text-3xl font-semibold tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">jhoIA</h1>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-emerald-400 transition">Inicio</a>
+        <a href="caracteristicas.html" class="hover:text-emerald-400 transition">Cómo funciona</a>
+        <a href="demo.html" class="text-emerald-400 font-semibold">Demo en vivo</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="#" onclick="mostrarLogin()" class="text-sm font-medium px-6 py-2.5 rounded-3xl border border-white/30 hover:border-white/70 transition">Iniciar sesión</a>
+        <a href="#" onclick="empezarGratis()" class="bg-emerald-400 hover:bg-emerald-300 transition text-black font-semibold px-8 py-2.5 rounded-3xl flex items-center gap-2">
+          <i class="fas fa-rocket"></i> Probar gratis
+        </a>
+        <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+          <i class="fas fa-bars" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-white/10 py-6 px-6">
+      <div class="flex flex-col gap-6 text-lg">
+        <a href="index.html" onclick="toggleMobileMenu()">Inicio</a>
+        <a href="caracteristicas.html" onclick="toggleMobileMenu()">Cómo funciona</a>
+        <a href="demo.html" onclick="toggleMobileMenu()">Demo en vivo</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="pt-28 pb-12 max-w-5xl mx-auto px-6">
+    <h1 class="text-6xl font-semibold tracking-tighter text-center">Prueba jhoIA en vivo</h1>
+    <p class="text-xl text-zinc-400 mt-4 text-center">Escribe como si fueras un cliente real</p>
+
+    <div id="chat-window" class="bg-zinc-800 rounded-3xl h-[620px] flex flex-col overflow-hidden border border-white/10 shadow-2xl mt-10">
+      <div class="bg-zinc-900 px-8 py-5 flex items-center gap-4 border-b">
+        <div class="w-9 h-9 bg-emerald-400 rounded-2xl flex items-center justify-center text-black text-2xl">🤖</div>
+        <div class="font-medium text-lg">jhoIA • Hablando como humano</div>
+        <div class="ml-auto text-xs px-4 py-1.5 bg-emerald-400 text-black rounded-3xl">En línea</div>
+      </div>
+      <div id="chat-messages" class="flex-1 p-8 overflow-y-auto space-y-8"></div>
+      <div class="p-6 border-t bg-zinc-900">
+        <form id="chat-form" class="flex gap-4">
+          <input id="chat-input" type="text" placeholder="Ej: Hola, ¿tienes disponibilidad el viernes a las 4?" 
+                 class="flex-1 bg-zinc-800 text-white placeholder:text-zinc-500 rounded-3xl px-8 py-5 outline-none text-lg">
+          <button type="submit" class="bg-emerald-400 hover:bg-emerald-300 text-black w-14 h-14 rounded-3xl flex items-center justify-center text-2xl">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-black py-12 text-zinc-400 text-sm">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>© 2026 jhoIA • Asistente IA que habla como tú</div>
+      <div class="flex gap-6">
+        <a href="index.html" class="hover:text-emerald-400">Inicio</a>
+        <a href="caracteristicas.html" class="hover:text-emerald-400">Cómo funciona</a>
+        <a href="demo.html" class="hover:text-emerald-400">Demo</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const respuestasIA = {
+      "hola": "¡Hola! ¿En qué te puedo ayudar hoy? ¿Quieres agendar una cita o reservación?",
+      "disponibilidad": "Claro, déjame ver... ¿Para qué día y hora más o menos?",
+      "viernes": "Perfecto, el viernes tengo 3:00 pm y 4:30 pm libres. ¿Cuál te conviene?",
+      "mañana": "Mañana tengo 10:00 am y 11:30 am libres. ¿Te reservo alguna?",
+      "reservacion": "¡Genial! ¿Para cuántas personas? ¿A qué hora te gustaría?",
+      "cita": "Entendido. ¿Qué tipo de cita necesitas? Te la agendo ahora mismo.",
+      "confirmar": "¡Listo! Ya te tengo agendado. Te envío la confirmación por WhatsApp.",
+      "default": "Entendido... ¡Ya está! ¿Quieres que te lo confirme ahora?"
+    };
+
+    function agregarMensaje(texto, esUsuario) {
+      const chat = document.getElementById('chat-messages');
+      const div = document.createElement('div');
+      div.className = `flex ${esUsuario ? 'justify-end' : 'justify-start'}`;
+      if (esUsuario) {
+        div.innerHTML = `<div class="chat-bubble-user max-w-[75%] px-6 py-4">${texto}</div>`;
+      } else {
+        div.innerHTML = `<div class="flex gap-3"><div class="w-9 h-9 bg-emerald-400 rounded-2xl flex-shrink-0 flex items-center justify-center text-black text-2xl">🤖</div><div class="chat-bubble-ai max-w-[75%] px-6 py-4">${texto}</div></div>`;
+      }
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function iniciarChatDemo() {
+      const form = document.getElementById('chat-form');
+      const input = document.getElementById('chat-input');
+      setTimeout(() => agregarMensaje("¡Hola! Soy jhoIA. Escribe como si me hablaras por WhatsApp...", false), 600);
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const texto = input.value.trim();
+        if (!texto) return;
+        agregarMensaje(texto, true);
+        input.value = '';
+        setTimeout(() => {
+          let resp = respuestasIA["default"];
+          const lower = texto.toLowerCase();
+          for (let key in respuestasIA) {
+            if (lower.includes(key)) { resp = respuestasIA[key]; break; }
+          }
+          agregarMensaje(resp, false);
+        }, 1100);
+      });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const icon = document.getElementById('menu-icon');
+      menu.classList.toggle('hidden');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-xmark');
+    }
+    function empezarGratis() {
+      const m = document.createElement('div');
+      m.style.cssText = 'position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#00ff9d;color:#000;padding:20px 40px;border-radius:9999px;font-weight:600;box-shadow:0 10px 30px -10px #00ff9d;z-index:9999';
+      m.innerHTML = '🎉 ¡Genial! Redirigiendo a tu prueba gratis...';
+      document.body.appendChild(m);
+      setTimeout(() => { m.style.opacity = '0'; setTimeout(() => m.remove(), 400); alert('✅ ¡Bienvenido a jhoIA!'); }, 1800);
+    }
+    function mostrarLogin() { alert('🔑 Iniciar sesión (en producción abre un modal)'); }
+
+    window.onload = iniciarChatDemo;
+  </script>
+</body>
+</html>
