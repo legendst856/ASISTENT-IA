@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIBiz • Asistente IA para Negocios</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+    :root { --primary: #00d4ff; }
+    .hero-bg { background: linear-gradient(135deg, #0a0a2a 0%, #1a1a4b 100%); }
+    .chat-bubble-user { background: #00d4ff; color: #000; border-radius: 20px 20px 0 20px; }
+    .chat-bubble-ai { background: #1f2937; border-radius: 20px 20px 20px 0; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white font-sans">
+  <!-- NAV -->
+  <nav class="fixed top-0 w-full bg-zinc-950/90 backdrop-blur-lg z-50 border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-cyan-400 rounded-2xl flex items-center justify-center text-black font-bold text-2xl">🤖</div>
+        <h1 class="text-3xl font-semibold tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">AIBiz</h1>
+      </div>
+      
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#caracteristicas" class="hover:text-cyan-400 transition">Características</a>
+        <a href="#demo" class="hover:text-cyan-400 transition">Demo IA</a>
+        <a href="#precios" class="hover:text-cyan-400 transition">Precios</a>
+        <a href="#testimonios" class="hover:text-cyan-400 transition">Clientes</a>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <a href="#" onclick="mostrarLogin()" class="text-sm font-medium px-6 py-2.5 rounded-3xl border border-white/30 hover:border-white/70 transition">Iniciar sesión</a>
+        <a href="#" onclick="empezarGratis()" class="bg-cyan-400 hover:bg-cyan-300 transition text-black font-semibold px-8 py-2.5 rounded-3xl flex items-center gap-2">
+          <i class="fas fa-rocket"></i>
+          Prueba gratis
+        </a>
+        <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+          <i class="fas fa-bars" id="menu-icon"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-white/10 py-6 px-6">
+      <div class="flex flex-col gap-6 text-lg">
+        <a href="#caracteristicas" class="hover:text-cyan-400" onclick="toggleMobileMenu()">Características</a>
+        <a href="#demo" class="hover:text-cyan-400" onclick="toggleMobileMenu()">Demo IA</a>
+        <a href="#precios" class="hover:text-cyan-400" onclick="toggleMobileMenu()">Precios</a>
+        <a href="#testimonios" class="hover:text-cyan-400" onclick="toggleMobileMenu()">Clientes</a>
+        <div class="pt-6 border-t border-white/10 flex flex-col gap-4">
+          <a href="#" onclick="mostrarLogin();toggleMobileMenu()" class="text-center py-4 border border-white/30 rounded-3xl">Iniciar sesión</a>
+          <a href="#" onclick="empezarGratis();toggleMobileMenu()" class="text-center py-4 bg-cyan-400 text-black font-semibold rounded-3xl">Prueba gratis</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero-bg pt-28 pb-20 md:pt-32">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div class="space-y-8">
+        <div class="inline-flex items-center gap-2 bg-white/10 text-white text-sm px-5 py-2 rounded-3xl backdrop-blur">
+          <div class="w-2 h-2 bg-green-400 animate-pulse rounded-full"></div>
+          IA lista para tu empresa • Colombia y LATAM
+        </div>
+        
+        <h1 class="text-6xl md:text-7xl font-semibold leading-none tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">
+          Tu asistente de IA<br>que <span class="text-cyan-400">multiplica</span> tus resultados
+        </h1>
+        
+        <p class="text-xl text-zinc-400 max-w-lg">
+          Automatiza ventas, analiza datos, responde clientes 24/7 y toma decisiones inteligentes. 
+          <strong class="text-white">Sin código. Solo resultados.</strong>
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+          <button onclick="empezarGratis()" 
+                  class="bg-cyan-400 hover:bg-cyan-300 transition text-black text-lg font-semibold px-10 py-6 rounded-3xl flex items-center gap-3">
+            <i class="fas fa-play"></i>
+            Probar AIBiz GRATIS
+          </button>
+          <button onclick="verDemo()" 
+                  class="border border-white/50 hover:bg-white/10 transition text-lg font-medium px-10 py-6 rounded-3xl flex items-center gap-3">
+            <i class="fas fa-robot"></i>
+            Ver demo en vivo
+          </button>
+        </div>
+
+        <div class="flex items-center gap-8 text-sm">
+          <div class="flex -space-x-4">
+            <div class="w-8 h-8 bg-zinc-700 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">🇨🇴</div>
+            <div class="w-8 h-8 bg-zinc-700 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">🇲🇽</div>
+            <div class="w-8 h-8 bg-zinc-700 rounded-2xl flex items-center justify-center text-xs ring-2 ring-zinc-950">🇵🇪</div>
+          </div>
+          <p class="text-zinc-400">+2.847 empresas ya crecieron con AIBiz</p>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="bg-gradient-to-br from-cyan-400/10 to-purple-500/10 backdrop-blur-3xl border border-white/10 rounded-3xl p-2 shadow-2xl">
+          <div class="bg-zinc-900 rounded-3xl p-8">
+            <div class="flex justify-between items-center mb-8">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-cyan-400 rounded-2xl flex items-center justify-center text-3xl">🤖</div>
+                <div>
+                  <p class="font-semibold">AIBiz está escribiendo...</p>
+                  <p class="text-xs text-emerald-400">• En línea •</p>
+                </div>
+              </div>
+              <div class="text-cyan-400 text-sm font-medium">+42% ventas este mes</div>
+            </div>
+            
+            <div class="space-y-6 text-sm">
+              <div class="bg-zinc-800 rounded-2xl p-5">📈 Tu reporte de ventas de abril ya está listo</div>
+              <div class="bg-zinc-800 rounded-2xl p-5">📧 14 clientes respondidos automáticamente</div>
+              <div class="bg-emerald-400/10 text-emerald-400 rounded-2xl p-5 flex items-center gap-3">
+                <i class="fas fa-check-circle"></i>
+                <span>Lead de Bogotá convertido en cliente de $8.4M</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARACTERÍSTICAS -->
+  <section id="caracteristicas" class="py-24 bg-white text-zinc-950">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-semibold tracking-tighter">Todo lo que tu negocio necesita<br>en un solo asistente IA</h2>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white border border-zinc-100 rounded-3xl p-8 hover:shadow-2xl transition">
+          <i class="fas fa-chart-line text-4xl text-cyan-400 mb-6"></i>
+          <h3 class="text-2xl font-semibold mb-3">Análisis inteligente</h3>
+          <p class="text-zinc-600">Reportes automáticos de ventas, finanzas y clientes. Predice tendencias antes que nadie.</p>
+        </div>
+        <div class="bg-white border border-zinc-100 rounded-3xl p-8 hover:shadow-2xl transition">
+          <i class="fas fa-robot text-4xl text-cyan-400 mb-6"></i>
+          <h3 class="text-2xl font-semibold mb-3">Atención 24/7</h3>
+          <p class="text-zinc-600">Chatbot que responde WhatsApp, Instagram y correo como si fueras tú.</p>
+        </div>
+        <div class="bg-white border border-zinc-100 rounded-3xl p-8 hover:shadow-2xl transition">
+          <i class="fas fa-bolt text-4xl text-cyan-400 mb-6"></i>
+          <h3 class="text-2xl font-semibold mb-3">Automatización total</h3>
+          <p class="text-zinc-600">Crea cotizaciones, envía facturas y sigue leads sin tocar una tecla.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO CHAT -->
+  <section id="demo" class="py-24 bg-zinc-900">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-5xl font-semibold tracking-tighter mb-3">Prueba el asistente ahora</h2>
+        <p class="text-xl text-zinc-400">Escribe como si le hablaras a tu empleado más inteligente</p>
+      </div>
+      
+      <!-- Chat container -->
+      <div id="chat-window" class="bg-zinc-800 rounded-3xl h-[520px] flex flex-col overflow-hidden border border-white/10">
+        <div class="bg-zinc-900 px-6 py-4 flex items-center gap-3 border-b">
+          <div class="w-8 h-8 bg-cyan-400 rounded-2xl flex items-center justify-center text-black text-xl">🤖</div>
+          <div class="font-medium">AIBiz • Asistente IA</div>
+          <div class="ml-auto text-xs px-3 py-1 bg-emerald-400 text-black rounded-3xl">En línea</div>
+        </div>
+        
+        <div id="chat-messages" class="flex-1 p-6 overflow-y-auto space-y-6">
+          <!-- Mensajes se agregan con JS -->
+        </div>
+        
+        <div class="p-4 border-t bg-zinc-900">
+          <form id="chat-form" class="flex gap-3">
+            <input id="chat-input" type="text" placeholder="Ej: ¿Cuánto vendí esta semana?" 
+                   class="flex-1 bg-zinc-800 text-white placeholder:text-zinc-500 rounded-3xl px-6 py-4 outline-none">
+            <button type="submit" 
+                    class="bg-cyan-400 hover:bg-cyan-300 text-black w-12 h-12 rounded-3xl flex items-center justify-center">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-center text-5xl font-semibold tracking-tighter mb-16">Lo que dicen los que ya lo usan</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-zinc-900 rounded-3xl p-8">
+          <p class="italic">"AIBiz me ahorró 28 horas al mes. Ahora mi equipo se enfoca en cerrar ventas, no en papeleo."</p>
+          <div class="mt-8 flex items-center gap-4">
+            <div class="w-12 h-12 bg-orange-400 rounded-2xl"></div>
+            <div>
+              <p class="font-semibold">Laura Mendoza</p>
+              <p class="text-xs text-zinc-400">Dueña • Café La 14 • Bogotá</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-zinc-900 rounded-3xl p-8">
+          <p class="italic">"El chatbot cerró 14 leads en mi primera semana. Increíble."</p>
+          <div class="mt-8 flex items-center gap-4">
+            <div class="w-12 h-12 bg-blue-400 rounded-2xl"></div>
+            <div>
+              <p class="font-semibold">Carlos Ramírez</p>
+              <p class="text-xs text-zinc-400">Gerente • Inmobiliaria Elite • Medellín</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-zinc-900 rounded-3xl p-8">
+          <p class="italic">"Predice mis mejores clientes. Nunca había visto algo tan preciso."</p>
+          <div class="mt-8 flex items-center gap-4">
+            <div class="w-12 h-12 bg-purple-400 rounded-2xl"></div>
+            <div>
+              <p class="font-semibold">Andrea Torres</p>
+              <p class="text-xs text-zinc-400">CEO • Importadora Turbo • Cali</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="bg-gradient-to-r from-cyan-400 to-purple-500 py-20 text-black">
+    <div class="max-w-4xl mx-auto text-center px-6">
+      <h2 class="text-5xl font-semibold tracking-tighter mb-6">¿Listo para multiplicar tu negocio?</h2>
+      <p class="text-2xl mb-10">Sin tarjeta. Sin compromiso. Prueba 14 días gratis.</p>
+      <button onclick="empezarGratis()" 
+              class="text-2xl bg-black text-white font-semibold px-16 py-8 rounded-3xl hover:scale-105 transition">
+        Empezar ahora con AIBiz →
+      </button>
+    </div>
+  </section>
+
+  <footer class="bg-black py-12 text-zinc-400 text-sm">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      © 2026 AIBiz • Hecho con ❤️ para empresarios colombianos y latinoamericanos
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
