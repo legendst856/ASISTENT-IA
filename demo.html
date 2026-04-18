@@ -15,8 +15,8 @@
         <h1 class="text-3xl font-semibold tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">jhoIA</h1>
       </div>
       <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="index.html">Inicio</a>
-        <a href="caracteristicas.html">Cómo funciona</a>
+        <a href="index.html" class="hover:text-emerald-400 transition">Inicio</a>
+        <a href="caracteristicas.html" class="hover:text-emerald-400 transition">Cómo funciona</a>
         <a href="demo.html" class="text-emerald-400">Demo en vivo</a>
       </div>
       <a href="index.html" class="text-sm font-medium px-6 py-2.5 rounded-3xl border border-white/30 hover:border-white/70">Volver</a>
@@ -29,29 +29,29 @@
       <p class="text-emerald-400 text-lg">Habla con jhoIA como si fuera un asistente humano</p>
     </div>
 
-    <!-- Chat Container -->
-    <div id="chat" class="bg-zinc-900 rounded-3xl h-[600px] flex flex-col overflow-hidden border border-white/10">
-      <!-- Messages -->
+    <!-- Chat -->
+    <div id="chat" class="bg-zinc-900 rounded-3xl h-[620px] flex flex-col overflow-hidden border border-white/10 shadow-2xl">
       <div id="messages" class="flex-1 p-6 overflow-y-auto space-y-6"></div>
 
-      <!-- Input -->
       <div class="p-6 border-t border-white/10 bg-zinc-950">
         <div class="flex gap-3">
           <input id="userInput" type="text" 
                  class="flex-1 bg-zinc-800 border border-white/20 rounded-2xl px-6 py-4 focus:outline-none focus:border-emerald-400 text-white placeholder-zinc-500"
-                 placeholder="Escribe un mensaje... (ej: Quiero reservar para el viernes a las 3pm)">
+                 placeholder="Ejemplo: Quiero una cita para el viernes a las 4pm">
           <button onclick="sendMessage()" 
-                  class="bg-emerald-400 hover:bg-emerald-300 text-black font-semibold px-8 rounded-2xl transition">
+                  class="bg-emerald-400 hover:bg-emerald-300 text-black font-semibold px-8 rounded-2xl transition flex items-center justify-center">
             <i class="fas fa-paper-plane"></i>
           </button>
         </div>
-        <p class="text-center text-xs text-zinc-500 mt-4">Demo impulsado por Groq • Respuestas ultra rápidas</p>
+        <p class="text-center text-xs text-zinc-500 mt-4">Demo con IA real (Groq) • Respuestas muy rápidas</p>
       </div>
     </div>
   </div>
 
   <script>
-    const GROQ_API_KEY = "TU_API_KEY_AQUI";   // ← Pega aquí tu clave de Groq
+    // Tu clave ya integrada
+    const GROQ_API_KEY = "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";
+
     const messagesDiv = document.getElementById('messages');
     const userInput = document.getElementById('userInput');
 
@@ -59,7 +59,7 @@
       const msg = document.createElement('div');
       msg.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
       msg.innerHTML = `
-        <div class="${isUser ? 'bg-emerald-500 text-black' : 'bg-zinc-800'} max-w-[80%] rounded-3xl px-6 py-4">
+        <div class="${isUser ? 'bg-emerald-500 text-black' : 'bg-zinc-800'} max-w-[85%] rounded-3xl px-6 py-4">
           ${text}
         </div>
       `;
@@ -69,7 +69,7 @@
 
     async function sendMessage() {
       const text = userInput.value.trim();
-      if (!text || !GROQ_API_KEY) return;
+      if (!text) return;
 
       addMessage(text, true);
       userInput.value = '';
@@ -78,7 +78,7 @@
       const thinking = document.createElement('div');
       thinking.id = 'thinking';
       thinking.className = 'flex justify-start';
-      thinking.innerHTML = `<div class="bg-zinc-800 max-w-[80%] rounded-3xl px-6 py-4">jhoIA está pensando<span class="animate-pulse">...</span></div>`;
+      thinking.innerHTML = `<div class="bg-zinc-800 max-w-[80%] rounded-3xl px-6 py-4">jhoIA está escribiendo<span class="animate-pulse">...</span></div>`;
       messagesDiv.appendChild(thinking);
       messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
@@ -90,38 +90,44 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",   // modelo rápido y bueno
+            model: "llama-3.3-70b-versatile",
             messages: [
-              { role: "system", content: "Eres jhoIA, un asistente muy amable, natural y profesional que ayuda a hacer reservaciones, citas y responder mensajes de clientes. Responde siempre en español de forma conversacional, como un humano real." },
+              { 
+                role: "system", 
+                content: "Eres jhoIA, un asistente IA muy amable, natural y profesional. Ayudas con reservaciones, citas y responder mensajes de clientes por WhatsApp o Instagram. Siempre respondes en español de forma conversacional y humana, como si fueras una persona real." 
+              },
               { role: "user", content: text }
             ],
-            temperature: 0.7,
-            max_tokens: 500
+            temperature: 0.75,
+            max_tokens: 600
           })
         });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
 
         const data = await response.json();
         const reply = data.choices[0].message.content;
 
-        // Remover "pensando"
         document.getElementById('thinking').remove();
         addMessage(reply, false);
 
       } catch (error) {
-        document.getElementById('thinking').remove();
-        addMessage("Lo siento, hubo un error de conexión. Verifica tu API key de Groq.", false);
         console.error(error);
+        document.getElementById('thinking')?.remove();
+        addMessage("❌ Hubo un error al conectar con la IA.<br>Verifica que la clave sea correcta y que no haya expirado.", false);
       }
     }
 
-    // Enviar con Enter
+    // Enviar con tecla Enter
     userInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") sendMessage();
     });
 
     // Mensaje inicial
     window.onload = () => {
-      addMessage("¡Hola! Soy jhoIA 😊 ¿En qué te ayudo hoy? Puedo agendar citas, hacer reservaciones o responder mensajes de clientes.", false);
+      addMessage("¡Hola! Soy jhoIA 😊<br>¿En qué te ayudo hoy? Puedes pedirme una reservación, cita o cómo responderle a un cliente.", false);
     };
   </script>
 </body>
